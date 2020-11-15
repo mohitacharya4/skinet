@@ -1,0 +1,5 @@
+obj
+bin
+MyData
+appsettings.json
+*.db
