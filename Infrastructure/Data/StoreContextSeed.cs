@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Entities;
+using Core.Entities.OrderAggregate;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Data
@@ -15,7 +16,7 @@ namespace Infrastructure.Data
         {
             try
             {
-                if(!context.ProductBrands.Any())
+                if (!context.ProductBrands.Any())
                 {
                     // the location is from Programs.cs file as this code will be executed from there
                     var brandsData = File.ReadAllText("../Infrastructure/Data/SeedData/brands.json");
@@ -30,7 +31,7 @@ namespace Infrastructure.Data
                     await context.SaveChangesAsync();
                 }
 
-                if(!context.ProductTypes.Any())
+                if (!context.ProductTypes.Any())
                 {
                     // the location is from Programs.cs file as this code will be executed from there
                     var typesData = File.ReadAllText("../Infrastructure/Data/SeedData/types.json");
@@ -45,7 +46,7 @@ namespace Infrastructure.Data
                     await context.SaveChangesAsync();
                 }
 
-                if(!context.Products.Any())
+                if (!context.Products.Any())
                 {
                     // the location is from Programs.cs file as this code will be executed from there
                     var productsData = File.ReadAllText("../Infrastructure/Data/SeedData/products.json");
@@ -60,7 +61,22 @@ namespace Infrastructure.Data
                     await context.SaveChangesAsync();
                 }
 
-                
+                if (!context.DeliveryMethods.Any())
+                {
+                    // the location is from Programs.cs file as this code will be executed from there
+                    var dmData = File.ReadAllText("../Infrastructure/Data/SeedData/delivery.json");
+
+                    var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
+
+                    foreach (var item in methods)
+                    {
+                        context.DeliveryMethods.Add(item);
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+
+
             }
             catch (Exception ex)
             {
