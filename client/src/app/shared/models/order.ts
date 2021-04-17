@@ -22,7 +22,7 @@ export interface IOrder {
   deliveryMethod: string;
   shippingPrice: number;
   orderItems: IOrderItem[];
-  subTotal: number;
+  subtotal: number;
   total: number;
   status: string;
 }

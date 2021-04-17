@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
-import { NotFoundComponent } from './core/not-found/not-found.component';
-import { ServerErrorComponent } from './core/server-error/server-error.component';
-import { TestErrorComponent } from './core/test-error/test-error.component';
+import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { TestErrorComponent } from './core/test-error/test-error.component';
+import { ServerErrorComponent } from './core/server-error/server-error.component';
+import { NotFoundComponent } from './core/not-found/not-found.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { breadcrumb: 'Home' } },
@@ -41,6 +41,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./checkout/checkout.module').then((mod) => mod.CheckoutModule),
     data: { breadcrumb: 'Checkout' },
+  },
+  {
+    path: 'orders',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./orders/orders.module').then((mod) => mod.OrdersModule),
+    data: { breadcrumb: 'Orders' },
   },
   {
     path: 'account',
