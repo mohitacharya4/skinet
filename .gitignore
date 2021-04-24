@@ -3,3 +3,5 @@ bin
 MyData
 appsettings.json
 *.db
+publish
+API/wwwroot
